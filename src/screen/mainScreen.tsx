@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {getResult} from '../redux/actions';
+import {MainScreenStyle} from '../styles/mainScreenStyle';
 
 export const MainScreen = () => {
   const [text, setText] = useState('');
@@ -22,26 +23,13 @@ export const MainScreen = () => {
   }, [text]);
 
   const renderSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: '100%',
-          backgroundColor: '#CED0CE',
-        }}
-      />
-    );
+    return <View style={MainScreenStyle.separator} />;
   };
 
   const renderHeader = () => {
     return (
       <TextInput
-        style={{
-          height: 40,
-          borderColor: '#000',
-          borderWidth: 1,
-          borderRadius: 10,
-        }}
+        style={MainScreenStyle.textInput}
         placeholder="Search"
         onChangeText={text => setText(text)}
         value={text}
@@ -50,25 +38,13 @@ export const MainScreen = () => {
   };
   const onItemPress = async (url: string) => {
     if (url !== 'enter text for searh') {
-      const supported = await Linking.canOpenURL(url);
-      if (supported) {
         await Linking.openURL(url);
-      } else {
-        console.log(`Don't know how to open this URL: ${url}`);
-      }
     }
   };
 
   return (
     <SafeAreaView>
-      <View
-        style={{
-          padding: 25,
-          width: '98%',
-          alignSelf: 'center',
-          justifyContent: 'center',
-          height: '100%',
-        }}>
+      <View style={MainScreenStyle.container}>
         <FlatList
           data={listUrl}
           renderItem={({item}) => (
