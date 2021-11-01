@@ -38,7 +38,11 @@ export const MainScreen = () => {
   };
   const onItemPress = async (url: string) => {
     if (url !== 'enter text for searh') {
+      try {
         await Linking.openURL(url);
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
